@@ -1,0 +1,130 @@
+* {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --black: #363636;
+  --white: #e7e7e7;
+
+--VeryLightGray:  #fafafa;
+--VeryLightGrayishBlue:  #e4e5f1;
+--LightGrayishBlue: #d2d3db;
+--DarkGrayishBlue: #9394a5;
+--VeryDarkGrayishBlue: #484b6a;
+}
+body {
+  background-color: var(--VeryLightGrayishBlue);
+}
+.header {
+  background: url(./todo-app-main/images/bg-mobile-light.jpg);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2.5rem 1.5rem;
+}
+.header .top {
+  display: flex;
+  justify-content: space-between;
+}
+#add-todo {
+  width: 100%;
+  padding: 1rem 3rem;
+  border-radius: 0.3rem;
+  border: none;
+}
+
+.todo-body {
+  padding: 2.5rem 1.5rem;
+}
+.todos {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-4rem);
+  max-height: 29rem;
+  overflow-y: scroll;
+}
+.todos::-webkit-scrollbar {
+  width: 5px;
+  background-color: var(--LightGrayishBlue);
+}
+.todos::-webkit-scrollbar-track {
+  color: blue;
+}
+.todos::-webkit-scrollbar-thumb {
+  background: linear-gradient(rgba(128, 0, 128, 0.226), rgba(76, 76, 216, 0.562));
+  height: 1rem;
+}
+.todo {
+  display: flex;
+  padding: 1rem;
+  position: relative;
+align-items: center;
+gap: 1rem;
+margin-bottom: 1.5px;
+background-color: var(--VeryLightGray);
+
+}
+.todo .todo-state{
+  height: 1.2rem;
+  width: 1.2rem;
+  border-radius: 50%;
+  border: 1px solid var(--LightGrayishBlue);
+  transition: 1s;
+  /* background-color: yellow; */
+}
+.todo-state.check-state {
+  background: linear-gradient(130deg,#57ddff,#c058f3);
+  border: none;
+  border-image:linear-gradient(130deg,#57ddff,#c058f3) ;
+}
+.todo .todo-state .check {
+  /* height: 1.2rem;
+  width: 1.2rem; */
+  border-radius: 50%;
+  background: linear-gradient(130deg,#57ddff,#c058f3);
+  /* display: none; */
+  /* visibility: hidden; */
+/* opacity: 0; */
+}
+.todo .todo-text {
+  font-size: 0.8em;
+  color: var(--VeryDarkGrayishBlue);
+}
+.todo .delete-todo {
+  position: absolute;
+  right: 1rem;
+  z-index: 5;
+  font-weight: 100;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.todo-status {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--VeryLightGray);
+  transform: translateY(-4rem);
+  font-size: .8em;
+  color: var(--DarkGrayishBlue);
+  position: fixed;
+  bottom: 3.4rem;
+  left: 1rem;
+  right: 1rem;
+}
+
+.filter {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  background-color: var(--VeryLightGray);
+  padding: 1rem;
+  transform: translateY(-3rem);
+  position: fixed;
+  bottom: 0rem;
+  left: 1rem;
+  right: 1rem;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+    <link rel="stylesheet" href="index.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
+      integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="top">
+        <h1>TODO</h1>
+        <div class="modes">
+          <img
+            src="./todo-app-main/images/icon-sun.svg"
+            alt=""
+            class="mode sun"
+          />
+          <img
+            src="./todo-app-main/images/icon-moon.svg"
+            alt=""
+            class="mode moon"
+          />
+        </div>
+      </div>
+      <div class="new-todo">
+        <input type="text" id="add-todo" placeholder="Create a new todo.." />
+        <label for="add-todo"></label>
+      </div>
+      <!-- </div> -->
+    </header>
+    <main class="todo-body">
+      <section class="todos"></section>
+      <section class="todo-status">
+        <p class="status">No items left</p>
+        <p class="clear-completed">Clear completed</p>
+      </section>
+
+      <section class="filter">
+        <p class="all">All</p>
+        <p class="active">Active</p>
+        <p class="completed">Completed</p>
+      </section>
+    </main>
+    <script src="index.js"></script>
+  </body>
+</html>
