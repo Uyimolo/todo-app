@@ -89,6 +89,7 @@ background-color: var(--VeryLightGray);
   /* display: none; */
   /* visibility: hidden; */
 /* opacity: 0; */
+z-index: 5;
 }
 .todo .todo-text {
   font-size: 0.8em;
