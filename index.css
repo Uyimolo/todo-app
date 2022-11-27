@@ -5,10 +5,8 @@
   margin: 0;
   box-sizing: border-box;
 }
-:root {
-  --black: #363636;
-  --white: #e7e7e7;
 
+:root {
 --VeryLightGray:  #fafafa;
 --VeryLightGrayishBlue:  #e4e5f1;
 --LightGrayishBlue: #d2d3db;
@@ -48,15 +46,15 @@ body {
   overflow-y: scroll;
 }
 .todos::-webkit-scrollbar {
-  width: 5px;
+  width: 10px;
   background-color: var(--LightGrayishBlue);
 }
 .todos::-webkit-scrollbar-track {
-  color: blue;
+  background-color: var(--VeryLightGray);
 }
 .todos::-webkit-scrollbar-thumb {
   background: linear-gradient(rgba(128, 0, 128, 0.226), rgba(76, 76, 216, 0.562));
-  height: 1rem;
+  border-radius: .5rem;
 }
 .todo {
   display: flex;
@@ -66,7 +64,7 @@ align-items: center;
 gap: 1rem;
 margin-bottom: 1.5px;
 background-color: var(--VeryLightGray);
-
+cursor: move;
 }
 .todo .todo-state{
   height: 1.2rem;
@@ -74,33 +72,28 @@ background-color: var(--VeryLightGray);
   border-radius: 50%;
   border: 1px solid var(--LightGrayishBlue);
   transition: 1s;
-  /* background-color: yellow; */
+  cursor: pointer;
 }
 .todo-state.check-state {
-  background: linear-gradient(130deg,#57ddff,#c058f3);
   border: none;
-  border-image:linear-gradient(130deg,#57ddff,#c058f3) ;
+  background:linear-gradient(130deg,#57ddff,#c058f3) ;
 }
-.todo .todo-state .check {
-  /* height: 1.2rem;
-  width: 1.2rem; */
-  border-radius: 50%;
-  background: linear-gradient(130deg,#57ddff,#c058f3);
-  /* display: none; */
-  /* visibility: hidden; */
-/* opacity: 0; */
-z-index: 5;
-}
+
 .todo .todo-text {
   font-size: 0.8em;
   color: var(--VeryDarkGrayishBlue);
+  width: 80%;
+  overflow-wrap: break-word;
+  line-height: 1.6;
 }
 .todo .delete-todo {
   position: absolute;
   right: 1rem;
   z-index: 5;
   font-weight: 100;
+  font-size: 1.2rem;
   font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
 }
 
 .todo-status {
