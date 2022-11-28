@@ -148,7 +148,7 @@ document.querySelector(".filter").addEventListener("click", (e) => {
 });
 
 // drag and drop functionality
-// const dragArea = document.querySelector(".todos");
-// new Sortable(dragArea, {
-//   animation: 950,
-// });
+const dragArea = document.querySelector(".todos");
+new Sortable(dragArea, {
+  animation: 950,
+});
