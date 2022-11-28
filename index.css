@@ -12,9 +12,20 @@
 --LightGrayishBlue: #d2d3db;
 --DarkGrayishBlue: #9394a5;
 --VeryDarkGrayishBlue: #484b6a;
+
+--VeryDarkBlue: #161722;
+--VeryDarkDesaturatedBlue: #25273c;
+--LightGrayishBlue1: #cacde8;
+--LightGrayishBlue2: #e4e5f1;
+--DarkGrayishBlueDark: #777a92;
+--VeryDarkGrayishBlue: #4d5066;
+--VeryDarkGrayishBlue: #38394d;
 }
 body {
   background-color: var(--VeryLightGrayishBlue);
+}
+.body.dark{
+  background-color: var(--VeryDarkDesaturatedBlue);
 }
 .header {
   background: url(./todo-app-main/images/bg-mobile-light.jpg);
@@ -23,6 +34,10 @@ body {
   flex-direction: column;
   gap: 2rem;
   padding: 2.5rem 1.5rem;
+}
+.header.dark {
+  background: url(./todo-app-main/images/bg-mobile-dark.jpg);
+  background-size: cover;
 }
 .header .top {
   display: flex;
@@ -33,19 +48,26 @@ body {
   padding: 1rem 3rem;
   border-radius: 0.3rem;
   border: none;
+  background-color: var(--VeryLightGray);
 }
-
+#add-todo.dark {
+  background-color: var(--VeryDarkDesaturatedBlue);
+}
 .todo-body {
   padding: 2.5rem 1.5rem;
+}
+.todo-body.dark {
+  background-color: var(--VeryDarkBlue);
 }
 .todos {
   display: flex;
   flex-direction: column;
   transform: translateY(-4rem);
-  max-height: 29rem;
+  /* max-height: 29rem;
   overflow-y: scroll;
+  overflow-x: hidden; */
 }
-.todos::-webkit-scrollbar {
+/* .todos::-webkit-scrollbar {
   width: 10px;
   background-color: var(--LightGrayishBlue);
 }
@@ -55,7 +77,7 @@ body {
 .todos::-webkit-scrollbar-thumb {
   background: linear-gradient(rgba(128, 0, 128, 0.226), rgba(76, 76, 216, 0.562));
   border-radius: .5rem;
-}
+} */
 .todo {
   display: flex;
   padding: 1rem;
@@ -65,6 +87,16 @@ gap: 1rem;
 margin-bottom: 1.5px;
 background-color: var(--VeryLightGray);
 cursor: move;
+}
+.todo.dark {
+  background-color: var(--VeryDarkDesaturatedBlue);
+  color: var(--DarkGrayishBlue);
+}
+.todo.dark .todo-text {
+  color: var(--LightGrayishBlue);
+}
+.todo:hover {
+  background-color: var(--LightGrayishBlue);
 }
 .todo .todo-state{
   height: 1.2rem;
@@ -99,15 +131,18 @@ cursor: move;
 .todo-status {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1.2rem;
   background-color: var(--VeryLightGray);
   transform: translateY(-4rem);
   font-size: .8em;
   color: var(--DarkGrayishBlue);
-  position: fixed;
+  /* position: fixed;
   bottom: 3.4rem;
   left: 1rem;
-  right: 1rem;
+  right: 1rem; */
+}
+.todo-status.dark {
+  background-color: var(--VeryDarkDesaturatedBlue);
 }
 
 .filter {
@@ -117,8 +152,11 @@ cursor: move;
   background-color: var(--VeryLightGray);
   padding: 1rem;
   transform: translateY(-3rem);
-  position: fixed;
+  /* position: fixed;
   bottom: 0rem;
   left: 1rem;
-  right: 1rem;
+  right: 1rem; */
+}
+.filter.dark {
+  background-color: var(--VeryDarkDesaturatedBlue);
 }
