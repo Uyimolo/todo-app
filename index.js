@@ -8,7 +8,6 @@ const getTodos = () => {
   return storedTodos;
 };
 
-//add todo to local storage
 const addTodo = document.querySelector("#add-todo");
 addTodo.addEventListener("change", () => {
   const todoText = addTodo.value;
@@ -20,24 +19,94 @@ addTodo.addEventListener("change", () => {
   });
   localStorage.setItem("storedTodos", JSON.stringify(storedTodos));
   displayTodo(storedTodos);
-  showLeft();
   addTodo.value = "";
 });
 
-// show todo
+const isChecked = () => {
+  const storedTodos = getTodos();
+  storedTodos.forEach((todo) => {
+    const checkList = document.querySelectorAll(".todo-state");
+    checkList.forEach((check) => {
+      if (Number(check.parentElement.id) === todo.id) {
+        todo.isChecked === true
+          ? check.classList.add("check-state")
+          : check.classList.remove("check-state");
+      }
+    });
+  });
+};
+
+const showLeft = () => {
+  const status = document.querySelector(".status");
+  const uncompleted = getTodos().filter((todo) => todo.isChecked === false);
+  if (uncompleted.length < 2) {
+    status.textContent = `${uncompleted.length} item left`;
+  } else {
+    status.textContent = `${uncompleted.length} items left`;
+  }
+};
+
+window.addEventListener("DOMContentLoaded", showLeft);
+
+const handleChecked = (e) => {
+  const check = e.target;
+  if (e.target.classList.contains("todo-state")) {
+    check.classList.toggle("check-state");
+    const id = Number(check.parentElement.id);
+    let storedTodos = getTodos();
+    storedTodos.forEach((todo) => {
+      if (todo.id === id) {
+        todo.isChecked = !todo.isChecked;
+        console.log(todo.isChecked);
+        localStorage.setItem("storedTodos", JSON.stringify(storedTodos));
+      }
+    });
+    console.log(e.target);
+  }
+};
+//dark mode toggler
+let modeClass;
+const ReturnModeClass = () => modeClass;
+const modes = document.querySelectorAll(".mode");
+modes.forEach((mode) =>
+  mode.addEventListener("click", () => {
+    const light = document.querySelectorAll(".light");
+    light.forEach((light) => light.classList.toggle("dark"));
+    if (modeClass === undefined) {
+      modeClass = "dark";
+    } else if (modeClass === "dark") {
+      modeClass = "light";
+    }
+    else{
+modeClass = "dark"
+    }
+    ReturnModeClass();
+    displayTodo(getTodos())
+  })
+);
+
 const displayTodo = (todo) => {
   const todos = document.querySelector(".todos");
   todos.innerHTML = todo
-    .map((currentTodo) => {
-      return `<div class="todo" id=${currentTodo.id}>
-            <div class="todo-state"><input type="checkbox" class="check"></div>
-            <p class="todo-text">${currentTodo.text}</p>
-            <p class="delete-todo" >X</p></div>`;
+    .map((todo) => {
+      return `<div class="todo ${ReturnModeClass()}" id=${
+        todo.id
+      } draggable="true">
+    <div class="todo-state"></div>
+    <p class="todo-text">${todo.text}</p>
+    <p class="delete-todo" >X</p></div>`;
     })
     .join("");
+  console.log(modeClass);
+  // console.log(todos)
+  //added the eventListener for handleCheck here because it was only added on page load and not on new todo nodes
+  document
+    .querySelectorAll(".todo-state")
+    .forEach((state) => state.addEventListener("click", handleChecked));
+  isChecked();
+  showLeft();
 };
 
-// delete todo
 document.querySelector(".todos").addEventListener("click", (e) => {
   const toBeDeleted = e.target;
   if (toBeDeleted.classList.contains("delete-todo")) {
@@ -47,83 +116,22 @@ document.querySelector(".todos").addEventListener("click", (e) => {
     localStorage.setItem("storedTodos", JSON.stringify(UndeletedTodos));
     toBeDeleted.parentElement.remove();
   }
-  showLeft()
-
+  showLeft();
 });
 
 window.addEventListener("DOMContentLoaded", displayTodo(getTodos()));
-
-//toggle todo state checked/!checked
-const handleCheckState = (e) => {
-  const checkbox = e.target;
-  const pseudoCheckBox = checkbox.parentElement;
-  const id = Number(checkbox.parentElement.parentElement.id);
-  // indicate active states
-  pseudoCheckBox.classList.toggle("check-state");
-  // change checked state in storedTodos
-  handleChangeState(id);
-};
-
-const handleChangeState = (id) => {
-  let storedTodos = getTodos();
-  console.log(storedTodos);
-  storedTodos.forEach((item) => {
-    if (item.id === id) {
-      item.isChecked = !item.isChecked;
-    }
-  });
-  localStorage.setItem("storedTodos", JSON.stringify(storedTodos));
-  showLeft();
-};
-
-const check = document.querySelectorAll(".check").forEach((check) => {
-  check.addEventListener("change", handleCheckState);
-});
-
-const isChecked = () => {
-  const storedTodos = getTodos();
-  storedTodos.forEach((todo) => {
-    const checkList = document.querySelectorAll(".check");
-    checkList.forEach((check) => {
-      if (Number(check.parentElement.parentElement.id) === todo.id) {
-        check.checked = todo.isChecked;
-      }
-      check.checked === true
-        ? check.parentElement.classList.add("check-state")
-        : check.parentElement.classList.remove("check-state");
-    });
-  });
-};
-
 window.addEventListener("DOMContentLoaded", isChecked);
-
-const showLeft = () => {
-  const status = document.querySelector(".status");
-  const uncompleted = getTodos().filter((todo) => todo.isChecked === false);
-  //   if (uncompleted.length === 1) {
-  //     status.textContent = "1 item left";
-  //   }
-  //  else if(uncompleted.length < 1) {
-  //   status.textContent = "No item left"
-  //   }
-  //   else {
-  //     status.textContent = `${uncompleted.length} items left`;
-  //   }
-  status.textContent = `${uncompleted.length} items left`;
-};
-
-window.addEventListener("DOMContentLoaded", showLeft);
+//clear uncompleted todos
 const getUncompletedTodos = () => {
   const uncompleted = getTodos().filter((todo) => todo.isChecked === false);
   localStorage.setItem("storedTodos", JSON.stringify(uncompleted));
   displayTodo(uncompleted);
-  showLeft
+  showLeft;
 };
-
 document
   .querySelector(".clear-completed")
   .addEventListener("click", getUncompletedTodos);
-
+//filter todos
 document.querySelector(".filter").addEventListener("click", (e) => {
   const clicked = e.target;
   console.log(e.target);
@@ -137,12 +145,10 @@ document.querySelector(".filter").addEventListener("click", (e) => {
     filteredTodos = storedTodos;
   }
   displayTodo(filteredTodos);
-  isChecked();
-  showLeft();
 });
 
-//drag and drop functionality
-const dragArea = document.querySelector(".todos");
-new Sortable(dragArea, {
-  animation: 350,
-});
+// drag and drop functionality
+// const dragArea = document.querySelector(".todos");
+// new Sortable(dragArea, {
+//   animation: 950,
+// });
