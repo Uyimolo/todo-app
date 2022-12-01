@@ -1,32 +1,32 @@
 * {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Josefin Sans", sans-serif;
 }
 
 :root {
---VeryLightGray:  #fafafa;
---VeryLightGrayishBlue:  #e4e5f1;
---LightGrayishBlue: #d2d3db;
---DarkGrayishBlue: #9394a5;
---VeryDarkGrayishBlue: #484b6a;
+  --VeryLightGray: #fafafa;
+  --VeryLightGrayishBlue: #e4e5f1;
+  --LightGrayishBlue: #d2d3db;
+  --DarkGrayishBlue: #9394a5;
+  --VeryDarkGrayishBlue: #484b6a;
 
---VeryDarkBlue: #161722;
---VeryDarkDesaturatedBlue: #25273c;
---LightGrayishBlue1: #cacde8;
---LightGrayishBlue2: #e4e5f1;
---DarkGrayishBlueDark: #777a92;
---VeryDarkGrayishBlue: #4d5066;
---VeryDarkGrayishBlue: #38394d;
+  --VeryDarkBlue: #161722;
+  --VeryDarkDesaturatedBlue: #25273c;
+  --LightGrayishBlue1: #cacde8;
+  --LightGrayishBlue2: #e4e5f1;
+  --DarkGrayishBlueDark: #777a92;
+  --VeryDarkGrayishBlue: #4d5066;
+  --VeryDarkGrayishBlue: #38394d;
+
+  --DesktopWidth: 600px;
+  --mobileTransform: -4rem;
 }
 body {
   background-color: var(--VeryLightGrayishBlue);
 }
-.body.dark{
-  background-color: var(--VeryDarkDesaturatedBlue);
-}
+
 .header {
   background: url(./todo-app-main/images/bg-mobile-light.jpg);
   background-size: cover;
@@ -42,19 +42,42 @@ body {
 .header .top {
   display: flex;
   justify-content: space-between;
+  color: var(--VeryLightGrayishBlue);
+  width: 100%;
+  max-width: var(--DesktopWidth);
+  align-self: center;
+}
+.mode,
+.logo {
+  display: block;
+  cursor: pointer;
+}
+.sun {
+  display: none;
+}
+.sun.dark {
+  display: block;
+}
+.moon.dark {
+  display: none;
 }
 #add-todo {
   width: 100%;
+  max-width: var(--DesktopWidth);
   padding: 1rem 3rem;
   border-radius: 0.3rem;
   border: none;
   background-color: var(--VeryLightGray);
+  display: block;
+  margin: auto;
 }
 #add-todo.dark {
   background-color: var(--VeryDarkDesaturatedBlue);
+  color: var(--DarkGrayishBlue);
 }
 .todo-body {
   padding: 2.5rem 1.5rem;
+  height: 100vh;
 }
 .todo-body.dark {
   background-color: var(--VeryDarkBlue);
@@ -62,53 +85,44 @@ body {
 .todos {
   display: flex;
   flex-direction: column;
-  transform: translateY(-4rem);
-  /* max-height: 29rem;
-  overflow-y: scroll;
-  overflow-x: hidden; */
+  transform: translateY(var(--mobileTransform));
+  border-radius: 0.3rem 0.3rem 0 0;
+  overflow: hidden;
+  max-width: var(--DesktopWidth);
+  margin: auto;
 }
-/* .todos::-webkit-scrollbar {
-  width: 10px;
-  background-color: var(--LightGrayishBlue);
-}
-.todos::-webkit-scrollbar-track {
-  background-color: var(--VeryLightGray);
-}
-.todos::-webkit-scrollbar-thumb {
-  background: linear-gradient(rgba(128, 0, 128, 0.226), rgba(76, 76, 216, 0.562));
-  border-radius: .5rem;
-} */
 .todo {
   display: flex;
   padding: 1rem;
   position: relative;
-align-items: center;
-gap: 1rem;
-margin-bottom: 1.5px;
-background-color: var(--VeryLightGray);
-cursor: move;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5px;
+  background-color: var(--VeryLightGray);
 }
 .todo.dark {
   background-color: var(--VeryDarkDesaturatedBlue);
   color: var(--DarkGrayishBlue);
 }
 .todo.dark .todo-text {
-  color: var(--LightGrayishBlue);
+  color: var(--DarkGrayishBlue);
 }
-.todo:hover {
-  background-color: var(--LightGrayishBlue);
+.todo.dark:hover {
+  background-color: var(--VeryDarkGrayishBlue);
 }
-.todo .todo-state{
+.todo .todo-state {
   height: 1.2rem;
   width: 1.2rem;
   border-radius: 50%;
   border: 1px solid var(--LightGrayishBlue);
-  transition: 1s;
   cursor: pointer;
 }
 .todo-state.check-state {
   border: none;
-  background:linear-gradient(130deg,#57ddff,#c058f3) ;
+  background-color: #bf58f38a;
+  background-image: url(./todo-app-main/images/icon-check.svg), linear-gradient(130deg, #57ddff,  #bf58f3) ;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .todo .todo-text {
@@ -118,13 +132,13 @@ cursor: move;
   overflow-wrap: break-word;
   line-height: 1.6;
 }
+.todo .todo-text.check-state {
+  text-decoration: line-through;
+  color: var(--DarkGrayishBlue);
+}
 .todo .delete-todo {
   position: absolute;
   right: 1rem;
-  z-index: 5;
-  font-weight: 100;
-  font-size: 1.2rem;
-  font-family: Arial, Helvetica, sans-serif;
   cursor: pointer;
 }
 
@@ -132,31 +146,76 @@ cursor: move;
   display: flex;
   justify-content: space-between;
   padding: 1.2rem;
+  max-width: var(--DesktopWidth);
+  margin: auto;
   background-color: var(--VeryLightGray);
   transform: translateY(-4rem);
-  font-size: .8em;
+  font-size: 0.8em;
   color: var(--DarkGrayishBlue);
-  /* position: fixed;
-  bottom: 3.4rem;
-  left: 1rem;
-  right: 1rem; */
+  border-radius: 0 0 0.3rem 0.3rem;
 }
 .todo-status.dark {
   background-color: var(--VeryDarkDesaturatedBlue);
 }
-
+.todo-status .clear-completed {
+  cursor: pointer;
+}
 .filter {
   display: flex;
   gap: 1rem;
   justify-content: center;
   background-color: var(--VeryLightGray);
   padding: 1rem;
+  max-width: var(--DesktopWidth);
+  margin: auto;
   transform: translateY(-3rem);
-  /* position: fixed;
-  bottom: 0rem;
-  left: 1rem;
-  right: 1rem; */
+  border-radius: 0.3rem;
+  font-weight: 1000;
+}
+.filter-active {
+  color: #0662b8;
+}
+.all,
+.active,
+.completed {
+  cursor: pointer;
+}
+.all:hover,
+.active:hover,
+.completed:hover {
+  color: #cfcdcd;
 }
 .filter.dark {
   background-color: var(--VeryDarkDesaturatedBlue);
+  color: var(--DarkGrayishBlue);
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    background: url(./todo-app-main/images/bg-desktop-light.jpg);
+    padding: 4rem 1.5rem;
+  }
+  .header.dark {
+    background: url(./todo-app-main/images/bg-desktop-dark.jpg);
+  }
+  .logo {
+    font-size: 2.2em;
+  }
+  #add-todo {
+    font-size: 1em;
+  }
+  .todos {
+    transform: translateY(-5rem);
+  }
+  .todo .todo-text {
+    font-size: 1em;
+  }
+  .todo-status {
+    transform: translateY(-5rem);
+    font-size: 1em;
+  }
+  .filter {
+    width: 300px;
+    transform: translateY(-8.3rem);
+  }
 }
