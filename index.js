@@ -1,3 +1,4 @@
+//retrieve array of todos from local storage
 const getTodos = () => {
   let storedTodos;
   if (localStorage.getItem("storedTodos") === null) {
@@ -8,32 +9,58 @@ const getTodos = () => {
   return storedTodos;
 };
 
+//add todo to array of todos in local storage
 const addTodo = document.querySelector("#add-todo");
 addTodo.addEventListener("change", () => {
   const todoText = addTodo.value;
   const storedTodos = getTodos();
   storedTodos.push({
     id: Date.now(),
-    text: todoText,
+    todoText,
     isChecked: false,
   });
   localStorage.setItem("storedTodos", JSON.stringify(storedTodos));
   displayTodo(storedTodos);
   addTodo.value = "";
+  console.log(storedTodos);
 });
-
+//check if todo is checked and add/remove the check-state class (handles UI)
 const isChecked = () => {
   const storedTodos = getTodos();
   storedTodos.forEach((todo) => {
     const checkList = document.querySelectorAll(".todo-state");
     checkList.forEach((check) => {
       if (Number(check.parentElement.id) === todo.id) {
-        todo.isChecked === true
-          ? check.classList.add("check-state")
-          : check.classList.remove("check-state");
+        // todo.isChecked === true
+        //   ? check.classList.add("check-state")
+        //   : check.classList.remove("check-state");
+        if (todo.isChecked) {
+          check.classList.add("check-state");
+          check.nextElementSibling.classList.add("check-state");
+          console.log(check.nextElementSibling);
+        } else {
+          check.classList.remove("check-state");
+          check.nextElementSibling.classList.remove("check-state");
+        }
       }
     });
   });
+};
+
+const handleChecked = (e) => {
+  const check = e.target;
+  if (e.target.classList.contains("todo-state")) {
+    check.classList.toggle("check-state");
+    check.nextElementSibling.classList.toggle("check-state");
+    const id = Number(check.parentElement.id);
+    let storedTodos = getTodos();
+    storedTodos.forEach((todo) => {
+      if (todo.id === id) {
+        todo.isChecked = !todo.isChecked;
+        localStorage.setItem("storedTodos", JSON.stringify(storedTodos));
+      }
+    });
+  }
 };
 
 const showLeft = () => {
@@ -45,25 +72,12 @@ const showLeft = () => {
     status.textContent = `${uncompleted.length} items left`;
   }
 };
-
-window.addEventListener("DOMContentLoaded", showLeft);
-
-const handleChecked = (e) => {
-  const check = e.target;
-  if (e.target.classList.contains("todo-state")) {
-    check.classList.toggle("check-state");
-    const id = Number(check.parentElement.id);
-    let storedTodos = getTodos();
-    storedTodos.forEach((todo) => {
-      if (todo.id === id) {
-        todo.isChecked = !todo.isChecked;
-        console.log(todo.isChecked);
-        localStorage.setItem("storedTodos", JSON.stringify(storedTodos));
-      }
-    });
-    console.log(e.target);
-  }
-};
+//handle check events, showUnchecked and display todos on page load
+window.addEventListener("DOMContentLoaded", () => {
+  isChecked();
+  showLeft();
+  displayTodo(getTodos());
+});
 //dark mode toggler
 let modeClass;
 const ReturnModeClass = () => modeClass;
@@ -76,12 +90,10 @@ modes.forEach((mode) =>
       modeClass = "dark";
     } else if (modeClass === "dark") {
       modeClass = "light";
+    } else {
+      modeClass = "dark";
     }
-    else{
-modeClass = "dark"
-    }
-    ReturnModeClass();
-    displayTodo(getTodos())
+    displayTodo(getTodos());
   })
 );
 
@@ -93,13 +105,11 @@ const displayTodo = (todo) => {
         todo.id
       } draggable="true">
     <div class="todo-state"></div>
-    <p class="todo-text">${todo.text}</p>
-    <p class="delete-todo" >X</p></div>`;
+    <p class="todo-text">${todo.todoText}</p>
+    <img src="./todo-app-main/images/icon-cross.svg" class="delete-todo"/></div>`;
     })
     .join("");
-  console.log(modeClass);
-  // console.log(todos)
-  //added the eventListener for handleCheck here because it was only added on page load and not on new todo nodes
+  // eventListener for handleCheck
   document
     .querySelectorAll(".todo-state")
     .forEach((state) => state.addEventListener("click", handleChecked));
@@ -107,6 +117,7 @@ const displayTodo = (todo) => {
   showLeft();
 };
 
+//delete todo from DOM and from todo array in local storage
 document.querySelector(".todos").addEventListener("click", (e) => {
   const toBeDeleted = e.target;
   if (toBeDeleted.classList.contains("delete-todo")) {
@@ -118,9 +129,6 @@ document.querySelector(".todos").addEventListener("click", (e) => {
   }
   showLeft();
 });
-
-window.addEventListener("DOMContentLoaded", displayTodo(getTodos()));
-window.addEventListener("DOMContentLoaded", isChecked);
 //clear uncompleted todos
 const getUncompletedTodos = () => {
   const uncompleted = getTodos().filter((todo) => todo.isChecked === false);
@@ -139,6 +147,7 @@ document.querySelector(".filter").addEventListener("click", (e) => {
   let filteredTodos;
   if (clicked.classList.contains("active")) {
     filteredTodos = storedTodos.filter((item) => item.isChecked === false);
+    document.querySelector(".all").style.color = "";
   } else if (clicked.classList.contains("completed")) {
     filteredTodos = storedTodos.filter((item) => item.isChecked === true);
   } else if (clicked.classList.contains("all")) {
@@ -147,8 +156,20 @@ document.querySelector(".filter").addEventListener("click", (e) => {
   displayTodo(filteredTodos);
 });
 
+document.querySelectorAll(".filters").forEach((filter) =>
+  filter.addEventListener("click", (e) => {
+    const alreadyActive = document.querySelectorAll(".filter-active");
+    alreadyActive.forEach((active) => {
+      if (active !== e.target) {
+        active.classList.remove("filter-active");
+      }
+    });
+    e.target.classList.toggle("filter-active");
+  })
+);
+
 // drag and drop functionality
 const dragArea = document.querySelector(".todos");
 new Sortable(dragArea, {
-  animation: 950,
+  animation: 550,
 });
