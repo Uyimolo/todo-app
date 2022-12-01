@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo App</title>
     <link rel="stylesheet" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;500;700&display=swap"
+      rel="stylesheet"
+    />
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"
       integrity="sha512-Eezs+g9Lq4TCCq0wae01s9PuNWzHYoCMkE97e2qdkYthpI0pzC3UGB03lgEHn2XM85hDOUF6qgqqszs+iXU4UA=="
@@ -16,38 +22,46 @@
   <body class="light">
     <header class="header light">
       <div class="top">
-        <h1>TODO</h1>
+        <h1 class="logo">TODO</h1>
         <div class="modes">
           <img
             src="./todo-app-main/images/icon-sun.svg"
             alt=""
-            class="mode sun"
+            class="mode sun light"
           />
           <img
             src="./todo-app-main/images/icon-moon.svg"
             alt=""
-            class="mode moon"
+            class="mode moon light"
           />
         </div>
       </div>
       <div class="new-todo">
-        <input type="text" id="add-todo" class="light" placeholder="Create a new todo.." />
+        <input
+          type="text"
+          id="add-todo"
+          class="light"
+          placeholder="Create a new todo.."
+        />
         <label for="add-todo"></label>
       </div>
       <!-- </div> -->
     </header>
     <main class="todo-body light">
-      <section class="todos" ></section>
+      <section class="todos"></section>
       <section class="todo-status light">
         <p class="status">No items left</p>
         <p class="clear-completed">Clear completed</p>
       </section>
 
       <section class="filter light">
-        <p class="all">All</p>
-        <p class="active">Active</p>
-        <p class="completed">Completed</p>
+        <p class="all filters filter-active">All</p>
+        <p class="active filters">Active</p>
+        <p class="completed filters">Completed</p>
       </section>
+      <p class="" style="text-align: center; color: #9f9fa1">
+        Drag and drop to reorder list.
+      </p>
     </main>
     <script src="index.js"></script>
   </body>
