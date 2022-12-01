@@ -51,6 +51,10 @@ body {
 .logo {
   display: block;
   cursor: pointer;
+  transition: 2s;
+}
+.mode:hover{
+ transform: rotate(360deg);
 }
 .sun {
   display: none;
@@ -116,6 +120,10 @@ body {
   border-radius: 50%;
   border: 1px solid var(--LightGrayishBlue);
   cursor: pointer;
+  /* transition: 1s; */
+}
+.todo-state:hover {
+  border: 1px solid var(--VeryDarkDesaturatedBlue);
 }
 .todo-state.check-state {
   border: none;
@@ -124,7 +132,9 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
-
+ .todo-state.check-state:hover{
+  background-image: url(./todo-app-main/images/icon-check.svg), linear-gradient(130deg, #bf58f3,#57ddff) ;
+}
 .todo .todo-text {
   font-size: 0.8em;
   color: var(--VeryDarkGrayishBlue);
@@ -141,7 +151,9 @@ body {
   right: 1rem;
   cursor: pointer;
 }
-
+.delete-todo:hover {
+  width: 1.4rem;
+}
 .todo-status {
   display: flex;
   justify-content: space-between;
@@ -159,6 +171,9 @@ body {
 }
 .todo-status .clear-completed {
   cursor: pointer;
+}
+.clear-completed:hover {
+  color:#0662b8 ;
 }
 .filter {
   display: flex;
