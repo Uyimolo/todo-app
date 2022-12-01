@@ -22,7 +22,6 @@ addTodo.addEventListener("change", () => {
   localStorage.setItem("storedTodos", JSON.stringify(storedTodos));
   displayTodo(storedTodos);
   addTodo.value = "";
-  console.log(storedTodos);
 });
 //check if todo is checked and add/remove the check-state class (handles UI)
 const isChecked = () => {
@@ -136,13 +135,14 @@ const getUncompletedTodos = () => {
   displayTodo(uncompleted);
   showLeft;
 };
+
 document
   .querySelector(".clear-completed")
   .addEventListener("click", getUncompletedTodos);
+
 //filter todos
 document.querySelector(".filter").addEventListener("click", (e) => {
   const clicked = e.target;
-  console.log(e.target);
   const storedTodos = getTodos();
   let filteredTodos;
   if (clicked.classList.contains("active")) {
